@@ -1,7 +1,9 @@
 import Link from "next/link";
 
 import { EmptyState } from "./_components/EmptyData";
+import { DashboardSkeleton } from "./_components/DashboardSkeleton";
 import { Suspense } from "react";
+import { ScrollArea } from "~/components/ui/scroll-area";
 import { Button } from "~/components/ui/button";
 import { ExternalLink, Pen, Settings, Trash, Users2 } from "lucide-react";
 import { CopyLinkMenuItem } from "~/components/CopyLinkMenuItem";
@@ -20,7 +22,7 @@ import {
 
 export default async function Dashboard() {
   return (
-    <section>
+    <section className="flex h-[400px] flex-grow flex-col gap-10">
       <div className="flex items-center justify-between px-2">
         <div className="hidden gap-1 sm:grid">
           <h1 className="font-heading text-3xl md:text-4xl">Event Types</h1>
@@ -32,7 +34,7 @@ export default async function Dashboard() {
           <Link href="/dashboard/new">Create New Event</Link>
         </Button>
       </div>
-      <Suspense fallback={<p>loading...</p>}>
+      <Suspense fallback={<DashboardSkeleton />}>
         {/* @ts-expect-error: due RSC is stupid */}
         <DashboardWithData />
       </Suspense>
@@ -42,10 +44,9 @@ export default async function Dashboard() {
 
 async function DashboardWithData() {
   const data = await api.event.getEvents();
-  console.log("data", data);
 
   return (
-    <section>
+    <ScrollArea>
       {data.length === 0 ? (
         <EmptyState
           title="You have no Event Types"
@@ -133,6 +134,6 @@ async function DashboardWithData() {
           ))}
         </div>
       )}
-    </section>
+    </ScrollArea>
   );
 }

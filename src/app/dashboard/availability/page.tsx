@@ -13,10 +13,20 @@ import {
 
 export default function AvailabilityPage() {
   return (
-    <Suspense fallback={<Loading />}>
-      {/* @ts-expect-error: due RSC is stupid */}
-      <Availability />
-    </Suspense>
+    <section className="flex flex-grow items-center justify-center">
+      <Card className="min-h-[300px] w-full">
+        <CardHeader>
+          <CardTitle>Availability</CardTitle>
+          <CardDescription>
+            In this section you can manage your availability.
+          </CardDescription>
+        </CardHeader>
+        <Suspense fallback={<Loading />}>
+          {/* @ts-expect-error: due RSC is stupid */}
+          <Availability />
+        </Suspense>
+      </Card>
+    </section>
   );
 }
 
@@ -31,15 +41,5 @@ function Loading() {
 async function Availability() {
   const availability = await api.user.getAvailability();
 
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Availability</CardTitle>
-        <CardDescription>
-          In this section you can manage your availability.
-        </CardDescription>
-      </CardHeader>
-      <AvailabilityForm availability={availability} />
-    </Card>
-  );
+  return <AvailabilityForm availability={availability} />;
 }

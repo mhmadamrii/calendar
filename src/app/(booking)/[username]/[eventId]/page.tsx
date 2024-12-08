@@ -15,6 +15,7 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
+import { TimeSlots } from "~/components/TimeSlots";
 
 export default async function Booking({
   params,
@@ -134,11 +135,12 @@ export default async function Booking({
               className="hidden h-full w-[1px] md:block"
             />
 
-            {/* <TimeSlots
-              selectedDate={selectedDate}
-              userName={params.username}
-              meetingDuration={eventData?.duration}
-            /> */}
+            {/* @ts-expect-error */}
+            <TimeSlots
+              grantId={eventData?.user?.grantId}
+              grantEmail={eventData?.user?.grantEmail}
+              availability={eventData?.user?.Availability}
+            />
           </CardContent>
         </Card>
       )}
