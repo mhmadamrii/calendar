@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-import Logo from "/logo.png";
 
 import { DasboardLinks } from "./_components/DashboardLInks";
 import { auth, signOut } from "~/server/auth";
@@ -8,7 +7,13 @@ import { Toaster } from "~/components/ui/sonner";
 import { Button } from "~/components/ui/button";
 import { Menu } from "lucide-react";
 import { ThemeToggle } from "~/components/ThemeToggle";
-import { Sheet, SheetContent, SheetTrigger } from "~/components/ui/sheet";
+
+import {
+  Sheet,
+  SheetContent,
+  SheetTitle,
+  SheetTrigger,
+} from "~/components/ui/sheet";
 
 import {
   DropdownMenu,
@@ -19,12 +24,12 @@ import {
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const session = auth();
+  const session = await auth();
 
   return (
     <>
@@ -35,7 +40,7 @@ export default function DashboardLayout({
               <Link href="/" className="flex items-center gap-2 font-semibold">
                 {/* <Image src="/logo.png" alt="Logo" className="size-6" /> */}
                 <p className="text-xl font-bold">
-                  Cal<span className="text-primary">Marshal</span>
+                  Cal<span className="text-primary">Endar</span>
                 </p>
               </Link>
             </div>
@@ -60,6 +65,7 @@ export default function DashboardLayout({
                 </Button>
               </SheetTrigger>
               <SheetContent side="left" className="flex flex-col">
+                <SheetTitle>Are you absolutely sure?</SheetTitle>
                 <nav className="mt-10 grid gap-2">
                   <DasboardLinks />
                 </nav>
@@ -76,7 +82,7 @@ export default function DashboardLayout({
                     className="rounded-full"
                   >
                     <Image
-                      src={(session?.user?.image as string) ?? ""}
+                      src={session?.user?.image as string}
                       alt="Profile"
                       width={20}
                       height={20}
@@ -94,6 +100,7 @@ export default function DashboardLayout({
                   <DropdownMenuItem asChild>
                     <form
                       className="w-full"
+                      // @ts-expect-error: due RSC is stupid
                       action={async () => {
                         "use server";
                         await signOut();

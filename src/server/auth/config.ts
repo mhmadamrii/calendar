@@ -18,6 +18,7 @@ declare module "next-auth" {
       // ...other properties
       // role: UserRole;
     } & DefaultSession["user"];
+    current_user: any;
   }
 
   // interface User {
@@ -32,6 +33,10 @@ declare module "next-auth" {
  * @see https://next-auth.js.org/configuration/options
  */
 export const authConfig = {
+  session: {
+    strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60, // 30 days
+  },
   providers: [
     DiscordProvider,
     GoogleProvider({
@@ -51,6 +56,7 @@ export const authConfig = {
   adapter: PrismaAdapter(db),
   callbacks: {
     session: async ({ session, token }) => {
+      console.log("token", token);
       if (token) {
         session.user.id = token.sub as string;
         session.current_user = await db.user.findUnique({

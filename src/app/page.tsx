@@ -1,7 +1,20 @@
+import { CTA } from "~/components/CTA";
+import { Features } from "~/components/Features";
+import { Hero } from "~/components/Hero";
+import { Logos } from "~/components/Logos";
+import { Navbar } from "~/components/Navbar";
+import { Testimonial } from "~/components/Testimonial";
+
 export default function Page() {
   return (
-    <main className="mx-auto max-w-3xl border p-4">
-      <h1>Hello world!</h1>
-    </main>
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <Navbar />
+      {/* @ts-expect-error: RSC is stupid */}
+      <Hero />
+      <Logos />
+      <Features />
+      <Testimonial />
+      <CTA />
+    </div>
   );
 }
