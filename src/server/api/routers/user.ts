@@ -90,6 +90,20 @@ export const userRouter = createTRPCRouter({
       return updateAvailability;
     }),
 
+  updateUserSetting: protectedProcedure
+    .input(z.object({ username: z.string(), fullname: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      return ctx.db.user.update({
+        where: {
+          id: ctx.session.user.id,
+        },
+        data: {
+          username: input.username,
+          name: input.fullname,
+        },
+      });
+    }),
+
   getAvailability: protectedProcedure.query(async ({ ctx }) => {
     const availability = await ctx.db.availability.findMany({
       where: {

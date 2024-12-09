@@ -8,7 +8,7 @@ export function Navbar() {
   return (
     <div className="relative mx-auto flex w-full flex-col py-5 md:flex-row md:items-center md:justify-between">
       <div className="flex flex-row items-center justify-between text-sm lg:justify-start">
-        <Link href="/" className="flex items-center gap-2">
+        <Link href="/dashboard" className="flex items-center gap-2">
           <Image
             src="/logo.png"
             width={100}
@@ -18,7 +18,7 @@ export function Navbar() {
           />
 
           <h4 className="text-3xl font-semibold">
-            Cal<span className="text-primary">Endar</span>
+            Meet<span className="text-primary">Book</span>
           </h4>
         </Link>
         <div className="md:hidden">

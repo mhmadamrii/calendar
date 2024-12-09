@@ -16,6 +16,7 @@ export const eventRouter = createTRPCRouter({
         url: z.string().min(1),
         description: z.string().min(1),
         videoCallSoftware: z.string().min(1),
+        status: z.string().min(1),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -27,6 +28,7 @@ export const eventRouter = createTRPCRouter({
           description: input.description,
           userId: ctx.session.user.id,
           videoCallSoftware: input.videoCallSoftware,
+          status: input.status,
         },
       });
     }),
@@ -40,6 +42,7 @@ export const eventRouter = createTRPCRouter({
         url: z.string().min(1),
         description: z.string().min(1),
         videoCallSoftware: z.string().min(1),
+        status: z.string().min(1),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -54,6 +57,7 @@ export const eventRouter = createTRPCRouter({
           description: input.description,
           userId: ctx.session.user.id,
           videoCallSoftware: input.videoCallSoftware,
+          status: input.status,
         },
       });
     }),
@@ -126,6 +130,23 @@ export const eventRouter = createTRPCRouter({
       });
 
       return event;
+    }),
+
+  getActiveMeetings: protectedProcedure
+    .input(z.object({ status: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const events = await ctx.db.eventType.findMany({
+        where: {
+          userId: ctx.session.user.id,
+          active: true,
+          ...(input.status !== "all" && { status: input.status }),
+        },
+        include: {
+          user: true,
+        },
+      });
+
+      return events;
     }),
 });
 

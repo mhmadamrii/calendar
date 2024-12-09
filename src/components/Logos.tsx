@@ -29,16 +29,16 @@ export function Logos() {
           height={100}
         />
         <Image
-          src="/nextjs-logo.svg"
+          src="/adidas.svg"
           alt="Logo"
-          className="col-span-2 max-h-12 w-full object-contain dark:invert lg:col-span-1"
-          width={100}
-          height={100}
+          className="col-span-2 max-h-28 w-full object-contain dark:invert lg:col-span-1"
+          width={300}
+          height={300}
         />
         <Image
-          src="/nextjs-logo.svg"
+          src="/zoom.svg"
           alt="Logo"
-          className="col-span-2 max-h-12 w-full object-contain dark:invert lg:col-span-1"
+          className="col-span-2 max-h-40 w-full object-contain dark:invert lg:col-span-1"
           width={100}
           height={100}
         />

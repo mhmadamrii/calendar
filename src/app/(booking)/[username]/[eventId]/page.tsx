@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import { BookMarked, CalendarX2, Clock } from "lucide-react";
+import { TimeSlots } from "~/components/TimeSlots";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { Separator } from "~/components/ui/separator";
@@ -15,7 +16,6 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-import { TimeSlots } from "~/components/TimeSlots";
 
 export default async function Booking({
   params,

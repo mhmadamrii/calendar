@@ -30,7 +30,7 @@ export function AuthModal() {
             alt="Logo"
           />
           <h4 className="text-3xl font-semibold">
-            Cal<span className="text-primary">Endar</span>
+            Meet<span className="text-primary">Book</span>
           </h4>
         </DialogHeader>
         <div className="mt-5 flex flex-col gap-3">

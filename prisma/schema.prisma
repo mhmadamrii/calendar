@@ -101,6 +101,7 @@ model EventType {
     description       String
     active            Boolean @default(true)
     videoCallSoftware String  @default("Google Meet")
+    status            String  @default("urgent")
 
     user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId String

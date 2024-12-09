@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { DasboardLinks } from "./_components/DashboardLInks";
+import { redirect } from "next/navigation";
 import { auth, signOut } from "~/server/auth";
 import { Toaster } from "~/components/ui/sonner";
 import { Button } from "~/components/ui/button";
@@ -31,6 +32,10 @@ export default async function DashboardLayout({
 }) {
   const session = await auth();
 
+  if (!session) {
+    redirect("/");
+  }
+
   return (
     <>
       <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
@@ -40,7 +45,7 @@ export default async function DashboardLayout({
               <Link href="/" className="flex items-center gap-2 font-semibold">
                 {/* <Image src="/logo.png" alt="Logo" className="size-6" /> */}
                 <p className="text-xl font-bold">
-                  Cal<span className="text-primary">Endar</span>
+                  Meet<span className="text-primary">Book</span>
                 </p>
               </Link>
             </div>

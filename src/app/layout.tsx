@@ -4,6 +4,7 @@ import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { extractRouterConfig } from "uploadthing/server";
 import { TRPCReactProvider } from "~/trpc/react";
 import { ThemeProvider } from "~/components/ThemeProvider";
@@ -33,7 +34,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
-            {children}
+            <NuqsAdapter>{children}</NuqsAdapter>
           </ThemeProvider>
         </TRPCReactProvider>
       </body>

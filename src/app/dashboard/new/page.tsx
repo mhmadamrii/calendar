@@ -3,6 +3,7 @@
 import Link from "next/link";
 
 import { Button } from "~/components/ui/button";
+import { useRouter } from "next/navigation";
 import { api } from "~/trpc/react";
 import { toast } from "sonner";
 import { useState } from "react";
@@ -50,9 +51,11 @@ const formSchema = z.object({
   duration: z.string().min(1),
   url: z.string().url(),
   description: z.string().min(2).max(50),
+  status: z.string().min(1),
 });
 
 export default function NewEvent() {
+  const router = useRouter();
   const [activePlatform, setActivePlatform] = useState<Platform>("Google Meet");
 
   const togglePlatform = (platform: Platform) => {
@@ -72,7 +75,7 @@ export default function NewEvent() {
   const { mutate, isPending } = api.event.create.useMutation({
     onSuccess: (_) => {
       toast.success("Event created");
-      form.reset();
+      router.push("/dashboard");
     },
   });
 
@@ -83,6 +86,7 @@ export default function NewEvent() {
       url: values.url,
       description: values.description,
       videoCallSoftware: activePlatform,
+      status: values.status,
     });
   }
 
@@ -108,7 +112,7 @@ export default function NewEvent() {
                       <FormControl>
                         <Input
                           disabled={isPending}
-                          placeholder="John Marshal"
+                          placeholder="HR Interview"
                           {...field}
                         />
                       </FormControl>
@@ -128,7 +132,7 @@ export default function NewEvent() {
                       <FormControl>
                         <Input
                           disabled={isPending}
-                          placeholder="John Marshal"
+                          placeholder="https://zoom.com"
                           {...field}
                         />
                       </FormControl>
@@ -148,7 +152,7 @@ export default function NewEvent() {
                       <FormControl>
                         <Textarea
                           disabled={isPending}
-                          placeholder="Tell us a little bit about yourself"
+                          placeholder="Provide meeting description"
                           className="resize-none"
                           {...field}
                         />
@@ -194,6 +198,33 @@ export default function NewEvent() {
                         You can manage email addresses in your{" "}
                         <Link href="/examples/forms">email settings</Link>.
                       </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="status"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Status</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                        value={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select status meeting" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="urgent">Urgent</SelectItem>
+                          <SelectItem value="regular">Regular</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormDescription>Your meeting status.</FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -252,7 +283,22 @@ export default function NewEvent() {
               <Button asChild variant="secondary">
                 <Link href="/dashboard">Cancel</Link>
               </Button>
-              <Button>Create Event Type</Button>
+              <Button className="w-[100px]">
+                {isPending ? (
+                  <svg
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                    className="mr-2 animate-spin"
+                    viewBox="0 0 1792 1792"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M526 1394q0 53-37.5 90.5t-90.5 37.5q-52 0-90-38t-38-90q0-53 37.5-90.5t90.5-37.5 90.5 37.5 37.5 90.5zm498 206q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-704-704q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm1202 498q0 52-38 90t-90 38q-53 0-90.5-37.5t-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-964-996q0 66-47 113t-113 47-113-47-47-113 47-113 113-47 113 47 47 113zm1170 498q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-640-704q0 80-56 136t-136 56-136-56-56-136 56-136 136-56 136 56 56 136zm530 206q0 93-66 158.5t-158 65.5q-93 0-158.5-65.5t-65.5-158.5q0-92 65.5-158t158.5-66q92 0 158 66t66 158z"></path>
+                  </svg>
+                ) : (
+                  "Create Event"
+                )}
+              </Button>
             </CardFooter>
           </form>
         </Form>

@@ -74,7 +74,7 @@ export default function OnboardingForm({ session }: { session: Session }) {
                   <FormItem>
                     <FormLabel>Full Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="John Marshal" {...field} />
+                      <Input placeholder="John Doe" {...field} />
                     </FormControl>
                     <FormDescription>
                       This is your public display name.

@@ -2,6 +2,7 @@ import OnboardingForm from "./_components/OnboardingForm";
 
 import { auth } from "~/server/auth";
 import { Suspense } from "react";
+import { redirect } from "next/navigation";
 
 export default function Onboarding() {
   return (
@@ -14,6 +15,9 @@ export default function Onboarding() {
 
 async function OnboardingWithSession() {
   const session = await auth();
-  console.log("session", session);
+
+  if (session.current_user.name !== null) {
+    redirect("/dashboard");
+  }
   return <OnboardingForm session={session} />;
 }
