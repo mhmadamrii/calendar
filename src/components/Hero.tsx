@@ -14,7 +14,7 @@ export async function Hero() {
       <div className="relative w-full items-center py-12 lg:py-20">
         <div className="text-center">
           <span className="rounded-full bg-primary/10 px-4 py-2 text-sm font-medium tracking-tight text-primary">
-            Introducing CalMarshal 1.0
+            Introducing MeetBook 1.0
           </span>
 
           <h1 className="mt-8 text-4xl font-medium leading-none sm:text-6xl md:text-7xl lg:text-8xl">
@@ -23,8 +23,8 @@ export async function Hero() {
           </h1>
 
           <p className="mx-auto mt-4 max-w-xl text-muted-foreground lg:text-lg">
-            Scheduling a meeting can be a pain. But we at CalMarshal make it
-            easy for your clients to schedule meetings with you.
+            Scheduling a meeting can be a pain. But we at MeetBook make it easy
+            for your clients to schedule meetings with you.
           </p>
           <div className="mb-12 mt-5">
             <AuthModal />

@@ -58,7 +58,7 @@ export default function OnboardingForm({ session }: { session: Session }) {
     <div className="flex h-screen w-screen items-center justify-center">
       <Card>
         <CardHeader>
-          <CardTitle>Welcome to CalMarshal</CardTitle>
+          <CardTitle>Welcome to MeetBook</CardTitle>
           <CardDescription>
             We need the following information to set up your profile
           </CardDescription>

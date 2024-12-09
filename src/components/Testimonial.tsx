@@ -25,7 +25,7 @@ export function Testimonial() {
                 />
               </svg>
               <span className="relative z-10">
-                Wow CalMarshal is the best platform i have ever used. Definitely
+                Wow MeetBook is the best platform i have ever used. Definitely
                 Recommend it to you guys, try it out!
               </span>
             </p>
