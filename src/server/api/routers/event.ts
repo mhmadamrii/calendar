@@ -58,6 +58,29 @@ export const eventRouter = createTRPCRouter({
       });
     }),
 
+  deleteEvent: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      return ctx.db.eventType.delete({
+        where: {
+          id: input.id,
+        },
+      });
+    }),
+
+  toggleActiveEvent: protectedProcedure
+    .input(z.object({ id: z.string(), isActive: z.boolean() }))
+    .mutation(async ({ ctx, input }) => {
+      return ctx.db.eventType.update({
+        where: {
+          id: input.id,
+        },
+        data: {
+          active: input.isActive,
+        },
+      });
+    }),
+
   getEvents: protectedProcedure.query(async ({ ctx }) => {
     const events = await ctx.db.eventType.findMany({
       where: {

@@ -18,7 +18,6 @@ export default async function EventById({
 
 async function EventByIdWithData({ id }: { id: string }) {
   const data = await api.event.getEventById({ id });
-  console.log("event by id", data);
 
   return <EditEvent event={data} />;
 }

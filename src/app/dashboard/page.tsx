@@ -123,7 +123,7 @@ async function DashboardWithData() {
               <div className="flex items-center justify-between bg-muted px-5 py-3 dark:bg-gray-900">
                 <MenuActiveSwitcher
                   initialChecked={item.active}
-                  eventTypeId={item.id}
+                  eventId={item.id}
                 />
 
                 <Link href={`/dashboard/event/${item.id}`}>
