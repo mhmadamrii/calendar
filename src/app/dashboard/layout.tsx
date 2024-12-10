@@ -70,7 +70,7 @@ export default async function DashboardLayout({
                 </Button>
               </SheetTrigger>
               <SheetContent side="left" className="flex flex-col">
-                <SheetTitle>Are you absolutely sure?</SheetTitle>
+                <SheetTitle>Organize your event with ease</SheetTitle>
                 <nav className="mt-10 grid gap-2">
                   <DasboardLinks />
                 </nav>

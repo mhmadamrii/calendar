@@ -4,6 +4,10 @@ import Link from "next/link";
 
 import { ScrollArea } from "~/components/ui/scroll-area";
 import { useQueryState } from "nuqs";
+import { Button } from "~/components/ui/button";
+import { Trash2 } from "lucide-react";
+import { toast } from "sonner";
+import { Spinner } from "~/components/Spinner";
 import { api } from "~/trpc/react";
 import { EmptyState } from "../_components/EmptyData";
 import { useEffect, useState } from "react";
@@ -62,6 +66,7 @@ const MeetingStatus = ({ status }: { status: string }) => {
 };
 
 export default function Meetings() {
+  const [currentProcessedItem, setCurrentPrcessedEvent] = useState<string>("");
   const [status, setStatus] = useQueryState("status", { defaultValue: "all" });
 
   const {
@@ -71,6 +76,17 @@ export default function Meetings() {
   } = api.event.getActiveMeetings.useQuery({
     status,
   });
+
+  const { mutate: deleteEvent, isPending } =
+    api.event.toggleActiveEvent.useMutation({
+      onSuccess: () => {
+        toast.success("Event removed successfully");
+        refetch();
+      },
+      onError: (error) => {
+        toast.error(error.message);
+      },
+    });
 
   const onValueChange = (value: string) => {
     setStatus(value);
@@ -119,7 +135,7 @@ export default function Meetings() {
             {isLoading && <h1>Retreiving data...</h1>}
             <ScrollArea className="h-[480px]">
               <Table>
-                <TableCaption>A list of your recent invoices.</TableCaption>
+                <TableCaption>A list of your recent events.</TableCaption>
                 <TableHeader>
                   <TableRow>
                     <TableHead>Title</TableHead>
@@ -128,6 +144,7 @@ export default function Meetings() {
                     <TableHead>Meeting Platform</TableHead>
                     <TableHead>Duration</TableHead>
                     <TableHead className="text-center">Link</TableHead>
+                    <TableHead></TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -158,6 +175,23 @@ export default function Meetings() {
                         >
                           Link
                         </Link>
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <Button
+                          className="flex items-center justify-center"
+                          onClick={() => {
+                            setCurrentPrcessedEvent(item.id);
+                            deleteEvent({ id: item.id, isActive: false });
+                          }}
+                          size="icon"
+                          variant="destructive"
+                        >
+                          {isPending && currentProcessedItem === item.id ? (
+                            <Spinner />
+                          ) : (
+                            <Trash2 className="text-red-400" />
+                          )}
+                        </Button>
                       </TableCell>
                     </TableRow>
                   ))}

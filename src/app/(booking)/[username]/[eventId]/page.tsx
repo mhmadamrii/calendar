@@ -2,20 +2,10 @@ import Image from "next/image";
 
 import { BookMarked, CalendarX2, Clock } from "lucide-react";
 import { TimeSlots } from "~/components/TimeSlots";
-import { Input } from "~/components/ui/input";
-import { Label } from "~/components/ui/label";
 import { Separator } from "~/components/ui/separator";
 import { api } from "~/trpc/server";
 import { RenderCalendar } from "~/components/RenderCalendar";
-
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "~/components/ui/card";
+import { Card, CardContent } from "~/components/ui/card";
 
 export default async function Booking({
   params,
@@ -23,14 +13,14 @@ export default async function Booking({
   params: Promise<{ username: string; eventId: string }>;
 }) {
   const { username, eventId } = await params;
+
   const eventData = await api.event.getEventById({ id: eventId });
-  console.log("event data", eventData);
   const showForm = false;
 
   const formattedDate = "hello world";
 
   return (
-    <div className="flex min-h-screen w-screen items-center justify-center">
+    <div className="flex w-full flex-grow items-center justify-center">
       {showForm ? (
         <Card className="max-w-[600px]">
           <CardContent className="grid gap-4 p-5 md:grid-cols-[1fr,auto,1fr]">
