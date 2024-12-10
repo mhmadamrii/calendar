@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { EmptyState } from "./_components/EmptyData";
+import { DialogCreateSchedule } from "./_components/DialogCreateSchedule";
 import { DashboardSkeleton } from "./_components/DashboardSkeleton";
 import { Suspense } from "react";
 import { ScrollArea } from "~/components/ui/scroll-area";
@@ -30,9 +31,13 @@ export default async function Dashboard() {
             Create and manage your event types.
           </p>
         </div>
-        <Button asChild>
-          <Link href="/dashboard/new">Create New Event</Link>
-        </Button>
+
+        <div className="flex items-center gap-2">
+          <DialogCreateSchedule />
+          <Button asChild>
+            <Link href="/dashboard/new">Create New Event</Link>
+          </Button>
+        </div>
       </div>
       <Suspense fallback={<DashboardSkeleton />}>
         {/* @ts-expect-error: due RSC is stupid */}

@@ -7,6 +7,13 @@ import {
 } from "~/server/api/trpc";
 
 export const userRouter = createTRPCRouter({
+  getAllUsers: protectedProcedure.query(async ({ ctx }) => {
+    return await ctx.db.user.findMany({
+      include: {
+        _count: true,
+      },
+    });
+  }),
   updateUser: publicProcedure
     .input(
       z.object({ fullname: z.string(), username: z.string(), id: z.string() }),

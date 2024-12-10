@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { Spinner } from "~/components/Spinner";
 import { AvailabilityForm } from "../_components/AvailabilityForm";
 import { api } from "~/trpc/server";
 
@@ -33,7 +34,7 @@ export default function AvailabilityPage() {
 function Loading() {
   return (
     <section className="flex h-full w-full items-center justify-center">
-      <h1 className="animate-bounce text-3xl font-semibold">Loading...</h1>
+      <Spinner />
     </section>
   );
 }

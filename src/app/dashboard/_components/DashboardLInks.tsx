@@ -2,9 +2,15 @@
 
 import Link from "next/link";
 
-import { cn } from "~/lib/utils";
-import { CalendarCheck, HomeIcon, Settings, Users2 } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { cn } from "~/lib/utils";
+import {
+  CalendarCheck,
+  HomeIcon,
+  Settings,
+  Users2,
+  ListTodo,
+} from "lucide-react";
 
 export const dashboardLinks = [
   {
@@ -19,14 +25,20 @@ export const dashboardLinks = [
     href: "/dashboard/meetings",
     icon: Users2,
   },
+  // {
+  //   id: 2,
+  //   name: "Schedule",
+  //   href: "/dashboard/schedule",
+  //   icon: ListTodo,
+  // },
   {
-    id: 2,
+    id: 3,
     name: "Availablity",
     href: "/dashboard/availability",
     icon: CalendarCheck,
   },
   {
-    id: 3,
+    id: 4,
     name: "Settings",
     href: "/dashboard/settings",
     icon: Settings,
