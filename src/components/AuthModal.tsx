@@ -2,7 +2,7 @@ import Image from "next/image";
 
 import { Button } from "~/components/ui/button";
 import { redirect } from "next/navigation";
-import { GitHubAuthButton, GoogleAuthButton } from "./SubmitButton";
+import { GoogleAuthButton } from "./SubmitButton";
 import { signIn } from "~/server/auth";
 
 import {
@@ -44,17 +44,6 @@ export function AuthModal() {
             }}
           >
             <GoogleAuthButton />
-          </form>
-
-          <form
-            className="w-full"
-            // @ts-expect-error: expecting error due react stupid
-            action={async () => {
-              "use server";
-              await signIn("github");
-            }}
-          >
-            <GitHubAuthButton />
           </form>
         </div>
       </DialogContent>
